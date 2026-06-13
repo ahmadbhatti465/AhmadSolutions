@@ -1,18 +1,18 @@
 export const siteConfig = {
-  name: "AhmadSols",
+  name: "Glovax Technologies",
   tagline: "Software House & Digital Agency",
   description:
-    "AhmadSols is a world-class software house and digital agency delivering AI-powered web development, mobile apps, cloud solutions, and digital marketing that drives real business growth.",
-  url: "https://ahmadsols.com",
-  ogImage: "https://ahmadsols.com/og.jpg",
-  email: "hello@ahmadsols.com",
+    "Glovax Technologies is a world-class software house and digital agency delivering AI-powered web development, mobile apps, cloud solutions, and digital marketing that drives real business growth.",
+  url: "https://glovaxtechnologies.com",
+  ogImage: "https://glovaxtechnologies.com/og.jpg",
+  email: "hello@glovaxtechnologies.com",
   phone: "+1 (555) 000-0000",
   address: "123 Innovation Street, Tech Valley, CA 94043",
   social: {
-    twitter: "https://twitter.com/ahmadsols",
-    linkedin: "https://linkedin.com/company/ahmadsols",
-    github: "https://github.com/ahmadsols",
-    instagram: "https://instagram.com/ahmadsols",
+    twitter: "https://twitter.com/glovaxtech",
+    linkedin: "https://linkedin.com/company/glovaxtechnologies",
+    github: "https://github.com/glovaxtechnologies",
+    instagram: "https://instagram.com/glovaxtech",
   },
 };
 

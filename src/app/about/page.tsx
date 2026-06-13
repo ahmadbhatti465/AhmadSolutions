@@ -78,7 +78,7 @@ export default function AboutPage() {
               <span className="gradient-text"> one product at a time.</span>
             </h1>
             <p className="text-muted text-lg leading-relaxed">
-              AhmadSols was founded with a simple mission: to help businesses
+              Glovax Technologies was founded with a simple mission: to help businesses
               leverage technology to create meaningful impact. Today, we're a
               global team of engineers, designers, and strategists who believe
               that great software can change the world.

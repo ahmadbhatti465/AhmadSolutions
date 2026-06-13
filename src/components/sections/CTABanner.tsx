@@ -29,7 +29,7 @@ export function CTABanner() {
             </h2>
 
             <p className="text-muted text-base md:text-lg max-w-xl mx-auto mb-8">
-              Let's discuss your project and explore how AhmadSols can help you
+              Let's discuss your project and explore how Glovax Technologies can help you
               achieve your business goals with cutting-edge technology.
             </p>
 

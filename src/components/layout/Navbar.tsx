@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { navLinks, siteConfig } from "@/lib/constants";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -44,12 +45,15 @@ export function Navbar() {
         <nav className="max-w-7xl mx-auto px-6 md:px-8">
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
-            <Link
-              href="/"
-              className="text-xl md:text-2xl font-bold tracking-tight"
-            >
-              {siteConfig.name}
-              <span className="text-accent">.</span>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/glovax-logo.svg"
+                alt="Glovax Technologies"
+                width={140}
+                height={49}
+                className="h-8 w-auto md:h-10"
+                priority
+              />
             </Link>
 
             {/* Desktop Navigation */}

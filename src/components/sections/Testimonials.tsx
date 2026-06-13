@@ -13,7 +13,7 @@ export function Testimonials() {
           eyebrow="Testimonials"
           title="What our clients"
           titleHighlight="say"
-          subtitle="Don't just take our word for it. Here's what industry leaders say about working with AhmadSols."
+          subtitle="Don't just take our word for it. Here's what industry leaders say about working with Glovax Technologies."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

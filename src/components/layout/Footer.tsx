@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { siteConfig, footerLinks } from "@/lib/constants";
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 export function Footer() {
   return (
@@ -19,9 +20,14 @@ export function Footer() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-4"
           >
-            <Link href="/" className="text-2xl font-bold tracking-tight">
-              {siteConfig.name}
-              <span className="text-accent">.</span>
+            <Link href="/" className="flex items-center">
+              <Image
+                src="/images/glovax-logo.svg"
+                alt="Glovax Technologies"
+                width={160}
+                height={56}
+                className="h-10 w-auto"
+              />
             </Link>
             <p className="mt-4 text-muted text-sm leading-relaxed max-w-xs">
               {siteConfig.description}

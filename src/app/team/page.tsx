@@ -53,7 +53,7 @@ export default function TeamPage() {
           <SectionHeader
             eyebrow="Our Team"
             title="Meet the minds behind"
-            titleHighlight="AhmadSols"
+            titleHighlight="Glovax Technologies"
             subtitle="A diverse team of innovators, engineers, and problem-solvers dedicated to transforming businesses through technology."
           />
 

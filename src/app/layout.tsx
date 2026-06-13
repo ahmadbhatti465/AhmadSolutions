@@ -60,7 +60,7 @@ export const metadata: Metadata = {
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
-    creator: "@ahmadsols",
+    creator: "@glovaxtech",
   },
   robots: {
     index: true,
