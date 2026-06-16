@@ -59,8 +59,8 @@ export const clientLogos = [
 ];
 
 export const stats = [
-  { value: 500, suffix: "+", label: "Projects Delivered" },
-  { value: 98, suffix: "%", label: "Client Satisfaction" },
+  { value: 100, suffix: "+", label: "Projects Delivered" },
+  { value: 99, suffix: "%", label: "Client Satisfaction" },
   { value: 30, suffix: "+", label: "Countries Served" },
-  { value: 50, suffix: "+", label: "Team Members" },
+  { value: 35, suffix: "+", label: "Team Members" },
 ];
