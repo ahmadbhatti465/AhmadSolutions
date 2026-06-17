@@ -12,6 +12,7 @@ export interface PortfolioItem {
   client: string;
   category: string;
   description: string;
+  link?: string;
   results: string[];
   technologies: string[];
   image: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { services } from "@/data/services";
+import { services as fallbackServices } from "@/data/services";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import {
   Code2,
@@ -12,6 +12,8 @@ import {
   Palette,
   ArrowUpRight,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Service } from "@/types";
 
 const iconMap: Record<string, React.ReactNode> = {
   Code2: <Code2 className="w-6 h-6" />,
@@ -23,6 +25,17 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export function ServicesGrid() {
+  const [services, setServices] = useState<Service[]>(fallbackServices);
+
+  useEffect(() => {
+    fetch("/api/public/services")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) setServices(data);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <section className="py-24 md:py-32 lg:py-40">
       <div className="max-w-7xl mx-auto px-6 md:px-8">

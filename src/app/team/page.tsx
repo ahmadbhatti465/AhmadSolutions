@@ -4,47 +4,72 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { TeamMember } from "@/types";
 
-const team = [
+const fallbackTeam: TeamMember[] = [
   {
+    id: "1",
     name: "Ahmad",
     role: "Founder & CEO",
+    department: "Executive",
     bio: "Visionary leader with 10+ years in software development and digital transformation.",
-    initials: "A",
+    expertise: [],
   },
   {
+    id: "2",
     name: "Iqra Kiran",
     role: "Chief Technology Officer",
+    department: "Engineering",
     bio: "Former Google lead architect specializing in scalable AI systems and cloud infrastructure.",
-    initials: "IK",
+    expertise: [],
   },
   {
+    id: "3",
     name: "Ali Mohyudin",
     role: "Head of AI Research",
+    department: "AI/ML",
     bio: "PhD in Machine Learning with deep expertise in neural networks and deep learning.",
-    initials: "AM",
+    expertise: [],
   },
   {
+    id: "4",
     name: "Moaaz Shafqat",
     role: "Lead Developer",
+    department: "Engineering",
     bio: "Full-stack expert passionate about building elegant, performant web applications.",
-    initials: "MS",
+    expertise: [],
   },
   {
+    id: "5",
     name: "Hammad Shafqat",
     role: "Head of Marketing",
+    department: "Marketing",
     bio: "Growth hacker with a track record of scaling startups from 0 to $10M+ revenue.",
-    initials: "HS",
+    expertise: [],
   },
   {
+    id: "6",
     name: "Rubab Mehmood",
     role: "Client Success Director",
+    department: "Client Success",
     bio: "Dedicated to ensuring every client achieves their business goals with our solutions.",
-    initials: "RM",
+    expertise: [],
   },
 ];
 
 export default function TeamPage() {
+  const [team, setTeam] = useState<TeamMember[]>(fallbackTeam);
+
+  useEffect(() => {
+    fetch("/api/public/team")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) setTeam(data);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -60,7 +85,7 @@ export default function TeamPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {team.map((member, index) => (
               <motion.div
-                key={member.name}
+                key={member.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -73,7 +98,7 @@ export default function TeamPage() {
               >
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 rounded-full bg-accent/10 text-accent flex items-center justify-center text-lg font-bold flex-shrink-0">
-                    {member.initials}
+                    {member.name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold">{member.name}</h3>

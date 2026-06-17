@@ -1,0 +1,35 @@
+import { NextResponse } from "next/server";
+import { db } from "@/db";
+import { services } from "@/db/schema";
+import { requireAdmin } from "@/lib/admin-auth";
+import { eq } from "drizzle-orm";
+
+type Params = Promise<{ id: string }>;
+
+export async function PUT(request: Request, { params }: { params: Params }) {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
+  try {
+    const { id } = await params;
+    const body = await request.json();
+    await db.update(services).set(body).where(eq(services.id, id));
+    return NextResponse.json({ success: true });
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : "Failed to update service";
+    return NextResponse.json({ error: message }, { status: 500 });
+  }
+}
+
+export async function DELETE(_request: Request, { params }: { params: Params }) {
+  const unauthorized = await requireAdmin();
+  if (unauthorized) return unauthorized;
+
+  try {
+    const { id } = await params;
+    await db.delete(services).where(eq(services.id, id));
+    return NextResponse.json({ success: true });
+  } catch {
+    return NextResponse.json({ error: "Failed to delete service" }, { status: 500 });
+  }
+}

@@ -6,8 +6,10 @@ import { SectionHeader } from "@/components/shared/SectionHeader";
 import { MagneticButton } from "@/components/shared/MagneticButton";
 import { motion } from "framer-motion";
 import { MapPin, Clock, Briefcase, ArrowUpRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { JobPosition } from "@/types";
 
-const positions = [
+const fallbackPositions: JobPosition[] = [
   {
     id: "1",
     title: "Senior AI/ML Engineer",
@@ -15,6 +17,9 @@ const positions = [
     location: "Remote / SF",
     type: "Full-time",
     experience: "5+ years",
+    description: "",
+    responsibilities: [],
+    requirements: [],
   },
   {
     id: "2",
@@ -23,6 +28,9 @@ const positions = [
     location: "Remote",
     type: "Full-time",
     experience: "3+ years",
+    description: "",
+    responsibilities: [],
+    requirements: [],
   },
   {
     id: "3",
@@ -31,6 +39,9 @@ const positions = [
     location: "San Francisco",
     type: "Full-time",
     experience: "4+ years",
+    description: "",
+    responsibilities: [],
+    requirements: [],
   },
   {
     id: "4",
@@ -39,6 +50,9 @@ const positions = [
     location: "Remote / SF",
     type: "Full-time",
     experience: "3+ years",
+    description: "",
+    responsibilities: [],
+    requirements: [],
   },
   {
     id: "5",
@@ -47,6 +61,9 @@ const positions = [
     location: "Remote",
     type: "Full-time",
     experience: "3+ years",
+    description: "",
+    responsibilities: [],
+    requirements: [],
   },
   {
     id: "6",
@@ -55,6 +72,9 @@ const positions = [
     location: "San Francisco",
     type: "Internship",
     experience: "0-1 years",
+    description: "",
+    responsibilities: [],
+    requirements: [],
   },
 ];
 
@@ -70,6 +90,17 @@ const benefits = [
 ];
 
 export default function CareerPage() {
+  const [positions, setPositions] = useState<JobPosition[]>(fallbackPositions);
+
+  useEffect(() => {
+    fetch("/api/public/careers")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) setPositions(data);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -82,7 +113,6 @@ export default function CareerPage() {
             subtitle="We're always looking for exceptional people who are passionate about building great products."
           />
 
-          {/* Benefits */}
           <div className="mb-20">
             <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-6">
               Why work here
@@ -107,7 +137,6 @@ export default function CareerPage() {
             </div>
           </div>
 
-          {/* Open Positions */}
           <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-6">
             Open Positions ({positions.length})
           </h3>

@@ -3,12 +3,26 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SectionHeader } from "@/components/shared/SectionHeader";
-import { portfolioItems } from "@/data/portfolio";
+import { portfolioItems as fallbackPortfolio } from "@/data/portfolio";
 import { motion } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { PortfolioItem } from "@/types";
 
 export default function WorkPage() {
+  const [portfolioItems, setPortfolioItems] = useState<PortfolioItem[]>(fallbackPortfolio);
+
+  useEffect(() => {
+    fetch("/api/public/portfolio")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) setPortfolioItems(data);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -38,10 +52,12 @@ function WorkCard({
   project,
   index,
 }: {
-  project: (typeof portfolioItems)[0];
+  project: PortfolioItem;
   index: number;
 }) {
-  return (
+  const hasLink = Boolean(project.link);
+
+  const cardBody = (
     <motion.article
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
@@ -56,7 +72,7 @@ function WorkCard({
     >
       <div className="relative aspect-[16/10] rounded-2xl overflow-hidden bg-surface-raised border border-border mb-5">
         <Image
-          src={project.image}
+          src={project.image || "/images/placeholder.jpg"}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, 50vw"
@@ -72,7 +88,11 @@ function WorkCard({
         </div>
 
         <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-background/80 backdrop-blur-sm border border-border flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-          <ArrowUpRight className="w-4 h-4" />
+          {hasLink ? (
+            <ExternalLink className="w-4 h-4" />
+          ) : (
+            <ArrowUpRight className="w-4 h-4" />
+          )}
         </div>
       </div>
 
@@ -109,6 +129,33 @@ function WorkCard({
           </span>
         ))}
       </div>
+
+      {hasLink && (
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1.5 mt-4 text-sm font-medium text-accent hover:text-accent-hover transition-colors"
+        >
+          Visit Live Project
+          <ExternalLink className="w-3.5 h-3.5" />
+        </a>
+      )}
     </motion.article>
   );
+
+  if (hasLink) {
+    return (
+      <a
+        href={project.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block cursor-pointer"
+      >
+        {cardBody}
+      </a>
+    );
+  }
+
+  return cardBody;
 }

@@ -4,7 +4,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { MagneticButton } from "@/components/shared/MagneticButton";
-import { services } from "@/data/services";
+import { services as fallbackServices } from "@/data/services";
 import { motion } from "framer-motion";
 import {
   Code2,
@@ -15,6 +15,8 @@ import {
   Palette,
   ArrowUpRight,
 } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Service } from "@/types";
 
 const iconMap: Record<string, React.ReactNode> = {
   Code2: <Code2 className="w-8 h-8" />,
@@ -26,6 +28,17 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export default function ServicesPage() {
+  const [services, setServices] = useState<Service[]>(fallbackServices);
+
+  useEffect(() => {
+    fetch("/api/public/services")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (Array.isArray(data) && data.length > 0) setServices(data);
+      })
+      .catch(() => {});
+  }, []);
+
   return (
     <>
       <Navbar />
