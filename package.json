@@ -9,8 +9,10 @@
     "lint": "eslint",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:migrate:turso": "dotenv -e .env.local -- drizzle-kit migrate",
     "db:studio": "drizzle-kit studio",
-    "db:seed": "tsx seed.ts"
+    "db:seed": "tsx seed.ts",
+    "db:seed:turso": "dotenv -e .env.local -- tsx seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
@@ -36,6 +38,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cross-env": "^10.1.0",
+    "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.10",
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
