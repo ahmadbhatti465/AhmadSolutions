@@ -8,7 +8,6 @@ const contactSchema = z.object({
   email: z.string().email(),
   company: z.string().optional(),
   service: z.string(),
-  budget: z.string(),
   message: z.string().min(10),
 });
 
@@ -21,7 +20,7 @@ export async function POST(request: Request) {
     const body = await request.json();
     const validated = contactSchema.parse(body);
 
-    const { name, email, company, service, budget, message } = validated;
+    const { name, email, company, service, message } = validated;
 
     const serviceLabel: Record<string, string> = {
       web: "Web Development",
@@ -31,14 +30,6 @@ export async function POST(request: Request) {
       marketing: "Digital Marketing",
       design: "UI/UX Design",
       other: "Other",
-    };
-
-    const budgetLabel: Record<string, string> = {
-      "10k-25k": "$10k - $25k",
-      "25k-50k": "$25k - $50k",
-      "50k-100k": "$50k - $100k",
-      "100k+": "$100k+",
-      "not-sure": "Not sure yet",
     };
 
     const emailHtml = `
@@ -68,10 +59,6 @@ export async function POST(request: Request) {
             <tr>
               <td style="padding: 8px 0; color: #6b7280;">Service</td>
               <td style="padding: 8px 0; font-weight: 500;">${serviceLabel[service] || service}</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px 0; color: #6b7280;">Budget</td>
-              <td style="padding: 8px 0; font-weight: 500;">${budgetLabel[budget] || budget}</td>
             </tr>
           </table>
         </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/constants";
+import { BreadcrumbJsonLd } from "@/components/shared/StructuredData";
 import CareerContent from "./career-content";
 
 export const metadata: Metadata = {
@@ -30,5 +31,15 @@ export const metadata: Metadata = {
 };
 
 export default function CareerPage() {
-  return <CareerContent />;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: siteConfig.url },
+          { name: "Careers", url: `${siteConfig.url}/career` },
+        ]}
+      />
+      <CareerContent />
+    </>
+  );
 }

@@ -8,6 +8,7 @@ export const siteConfig = {
   email: "glovaxtechnologies@gmail.com",
   phone: "+923254255480",
   address: "31 K, DHA Phase 5",
+  calendarUrl: "https://calendly.com/glovaxtechnologies/30min",
   social: {
     twitter: "https://twitter.com/glovaxtech",
     linkedin: "https://linkedin.com/company/glovaxtechnologies",

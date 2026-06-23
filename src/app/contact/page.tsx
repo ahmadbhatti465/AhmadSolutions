@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/constants";
+import { BreadcrumbJsonLd } from "@/components/shared/StructuredData";
 import ContactContent from "./contact-content";
 
 export const metadata: Metadata = {
@@ -28,5 +29,15 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactContent />;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: siteConfig.url },
+          { name: "Contact", url: `${siteConfig.url}/contact` },
+        ]}
+      />
+      <ContactContent />
+    </>
+  );
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/constants";
+import { BreadcrumbJsonLd } from "@/components/shared/StructuredData";
 import BlogContent from "./blog-content";
 
 export const metadata: Metadata = {
@@ -28,5 +29,15 @@ export const metadata: Metadata = {
 };
 
 export default function BlogPage() {
-  return <BlogContent />;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: siteConfig.url },
+          { name: "Blog", url: `${siteConfig.url}/blog` },
+        ]}
+      />
+      <BlogContent />
+    </>
+  );
 }

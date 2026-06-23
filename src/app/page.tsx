@@ -12,8 +12,9 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { CTABanner } from "@/components/sections/CTABanner";
 
 export const metadata: Metadata = {
-  title: siteConfig.tagline,
-  description: siteConfig.description,
+  title: `${siteConfig.name} — ${siteConfig.tagline}`,
+  description:
+    "Glovax Technologies is a world-class software house and digital agency delivering AI-powered web development, mobile apps, cloud solutions, and digital marketing that drives real business growth. Hire elite developers worldwide.",
   alternates: {
     canonical: siteConfig.url,
   },

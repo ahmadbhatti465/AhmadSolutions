@@ -10,7 +10,7 @@ import { z } from "zod";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { siteConfig } from "@/lib/constants";
-import { Mail, Phone, MapPin, Loader2 } from "lucide-react";
+import { Mail, Phone, MapPin, Calendar, ArrowUpRight, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 
 const contactSchema = z.object({
@@ -18,7 +18,6 @@ const contactSchema = z.object({
   email: z.string().email("Please enter a valid email"),
   company: z.string().optional(),
   service: z.string().min(1, "Please select a service"),
-  budget: z.string().min(1, "Please select a budget range"),
   message: z.string().min(10, "Message must be at least 10 characters"),
 });
 
@@ -124,51 +123,28 @@ export default function ContactContent() {
                   />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
-                      Service Interest *
-                    </label>
-                    <select
-                      {...register("service")}
-                      className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground focus:outline-none focus:border-accent transition-colors appearance-none cursor-pointer"
-                    >
-                      <option value="">Select a service</option>
-                      <option value="web">Web Development</option>
-                      <option value="mobile">Mobile Apps</option>
-                      <option value="ai">AI & Machine Learning</option>
-                      <option value="cloud">Cloud & DevOps</option>
-                      <option value="marketing">Digital Marketing</option>
-                      <option value="design">UI/UX Design</option>
-                      <option value="other">Other</option>
-                    </select>
-                    {errors.service && (
-                      <p className="mt-1 text-xs text-destructive">
-                        {errors.service.message}
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
-                      Budget Range *
-                    </label>
-                    <select
-                      {...register("budget")}
-                      className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground focus:outline-none focus:border-accent transition-colors appearance-none cursor-pointer"
-                    >
-                      <option value="">Select a range</option>
-                      <option value="10k-25k">$10k - $25k</option>
-                      <option value="25k-50k">$25k - $50k</option>
-                      <option value="50k-100k">$50k - $100k</option>
-                      <option value="100k+">$100k+</option>
-                      <option value="not-sure">Not sure yet</option>
-                    </select>
-                    {errors.budget && (
-                      <p className="mt-1 text-xs text-destructive">
-                        {errors.budget.message}
-                      </p>
-                    )}
-                  </div>
+                <div>
+                  <label className="block text-sm font-medium mb-2">
+                    Service Interest *
+                  </label>
+                  <select
+                    {...register("service")}
+                    className="w-full px-4 py-3 rounded-xl bg-surface border border-border text-foreground focus:outline-none focus:border-accent transition-colors appearance-none cursor-pointer"
+                  >
+                    <option value="">Select a service</option>
+                    <option value="web">Web Development</option>
+                    <option value="mobile">Mobile Apps</option>
+                    <option value="ai">AI & Machine Learning</option>
+                    <option value="cloud">Cloud & DevOps</option>
+                    <option value="marketing">Digital Marketing</option>
+                    <option value="design">UI/UX Design</option>
+                    <option value="other">Other</option>
+                  </select>
+                  {errors.service && (
+                    <p className="mt-1 text-xs text-destructive">
+                      {errors.service.message}
+                    </p>
+                  )}
                 </div>
 
                 <div>
@@ -207,6 +183,39 @@ export default function ContactContent() {
             {/* Contact Info Sidebar */}
             <div className="lg:col-span-2">
               <div className="space-y-8">
+                {/* Book a Call */}
+                <div className="relative rounded-2xl overflow-hidden border border-[#D4A017]/20 p-6 bg-surface-raised">
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-60"
+                    style={{
+                      background:
+                        "radial-gradient(circle at top right, rgba(212,160,23,0.12), transparent 60%)",
+                    }}
+                  />
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-2 text-xs font-semibold text-accent uppercase tracking-wider mb-3">
+                      <Calendar className="w-4 h-4" />
+                      Prefer to talk?
+                    </div>
+                    <h3 className="text-lg font-semibold text-foreground mb-1.5">
+                      Book a Call
+                    </h3>
+                    <p className="text-sm text-muted mb-5 leading-relaxed">
+                      Skip the back-and-forth. Grab a 30-minute slot on our
+                      calendar and let&apos;s discuss your project live.
+                    </p>
+                    <a
+                      href={siteConfig.calendarUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 w-full justify-center px-5 py-3 rounded-full bg-gradient-to-r from-[#D4A017] to-[#F5C842] text-[#0A0A0A] font-semibold text-sm shadow-[0_0_25px_rgba(212,160,23,0.15)] hover:shadow-[0_0_35px_rgba(212,160,23,0.25)] hover:brightness-110 transition-all"
+                    >
+                      Schedule Now
+                      <ArrowUpRight className="w-4 h-4" />
+                    </a>
+                  </div>
+                </div>
+
                 <div>
                   <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-4">
                     Contact Info

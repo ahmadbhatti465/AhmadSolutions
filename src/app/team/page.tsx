@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/lib/constants";
+import { BreadcrumbJsonLd } from "@/components/shared/StructuredData";
 import TeamContent from "./team-content";
 
 export const metadata: Metadata = {
@@ -26,5 +27,15 @@ export const metadata: Metadata = {
 };
 
 export default function TeamPage() {
-  return <TeamContent />;
+  return (
+    <>
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", url: siteConfig.url },
+          { name: "Team", url: `${siteConfig.url}/team` },
+        ]}
+      />
+      <TeamContent />
+    </>
+  );
 }

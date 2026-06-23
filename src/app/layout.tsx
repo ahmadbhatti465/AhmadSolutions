@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/constants";
@@ -19,6 +19,17 @@ const inter = Inter({
   weight: ["300", "400", "500", "600"],
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0A0A0A" },
+    { media: "(prefers-color-scheme: light)", color: "#0A0A0A" },
+  ],
+  colorScheme: "dark",
+};
+
 export const metadata: Metadata = {
   title: {
     default: `${siteConfig.name} — ${siteConfig.tagline}`,
@@ -28,18 +39,30 @@ export const metadata: Metadata = {
   keywords: [
     "software house",
     "digital agency",
-    "web development",
-    "mobile apps",
+    "web development company",
+    "mobile app development",
     "AI solutions",
+    "machine learning development",
     "cloud services",
-    "DevOps",
-    "digital marketing",
-    "SEO",
+    "DevOps consulting",
+    "digital marketing agency",
+    "SEO services",
     "SaaS development",
+    "custom software development",
+    "software house Pakistan",
+    "software house Lahore",
+    "hire developers",
+    "remote development team",
   ],
   authors: [{ name: siteConfig.name }],
   creator: siteConfig.name,
+  publisher: siteConfig.name,
   metadataBase: new URL(siteConfig.url),
+  applicationName: siteConfig.name,
+  category: "technology",
+  alternates: {
+    canonical: siteConfig.url,
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
@@ -58,6 +81,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
+    site: "@glovaxtech",
     title: `${siteConfig.name} — ${siteConfig.tagline}`,
     description: siteConfig.description,
     images: [siteConfig.ogImage],
@@ -73,6 +97,9 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GSC_VERIFICATION || "",
   },
 };
 

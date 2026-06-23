@@ -1,22 +1,44 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/constants";
+import { db } from "@/db";
+import { blogPosts } from "@/db/schema";
+import { blogPosts as staticPosts } from "@/data/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = [
     { path: "", priority: 1.0, changeFrequency: "weekly" as const },
     { path: "/about", priority: 0.8, changeFrequency: "monthly" as const },
-    { path: "/services", priority: 0.8, changeFrequency: "monthly" as const },
+    { path: "/services", priority: 0.9, changeFrequency: "monthly" as const },
     { path: "/work", priority: 0.9, changeFrequency: "weekly" as const },
-    { path: "/blog", priority: 0.7, changeFrequency: "daily" as const },
-    { path: "/contact", priority: 0.6, changeFrequency: "yearly" as const },
+    { path: "/blog", priority: 0.8, changeFrequency: "daily" as const },
+    { path: "/contact", priority: 0.7, changeFrequency: "yearly" as const },
     { path: "/team", priority: 0.7, changeFrequency: "monthly" as const },
     { path: "/career", priority: 0.7, changeFrequency: "weekly" as const },
   ];
 
-  return routes.map((route) => ({
+  const staticEntries: MetadataRoute.Sitemap = routes.map((route) => ({
     url: `${siteConfig.url}${route.path}`,
     lastModified: new Date(),
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }));
+
+  let postSlugs = staticPosts.map((p) => p.slug);
+  try {
+    const rows = await db.select().from(blogPosts);
+    if (rows.length > 0) {
+      postSlugs = rows.map((p) => p.slug);
+    }
+  } catch {
+    // DB unavailable — use static post slugs
+  }
+
+  const blogEntries: MetadataRoute.Sitemap = postSlugs.map((slug) => ({
+    url: `${siteConfig.url}/blog/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
+
+  return [...staticEntries, ...blogEntries];
 }

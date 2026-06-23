@@ -8,90 +8,10 @@ import { Clock, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { BlogPost } from "@/types";
-
-const fallbackPosts: BlogPost[] = [
-  {
-    id: "1",
-    slug: "future-of-ai-in-business",
-    title: "The Future of AI in Business: Trends to Watch",
-    excerpt: "Explore the cutting-edge AI trends that will transform how businesses operate in 2026 and beyond.",
-    content: "",
-    author: "Glovax Team",
-    category: "Artificial Intelligence",
-    tags: [],
-    publishedAt: "2026-02-15",
-    readTime: 8,
-    featured: false,
-  },
-  {
-    id: "2",
-    slug: "nextjs-15-complete-guide",
-    title: "The Complete Guide to Next.js 15",
-    excerpt: "Discover the latest features in Next.js 15 and learn how to leverage them to build faster applications.",
-    content: "",
-    author: "Glovax Team",
-    category: "Web Development",
-    tags: [],
-    publishedAt: "2026-02-05",
-    readTime: 10,
-    featured: false,
-  },
-  {
-    id: "3",
-    slug: "seo-strategies-2026",
-    title: "10 SEO Strategies That Actually Work in 2026",
-    excerpt: "Search engine optimization has evolved. Here are the proven strategies to help your website rank higher.",
-    content: "",
-    author: "Glovax Team",
-    category: "Digital Marketing",
-    tags: [],
-    publishedAt: "2026-01-28",
-    readTime: 7,
-    featured: false,
-  },
-  {
-    id: "4",
-    slug: "scalable-cloud-infrastructure",
-    title: "Building Scalable Cloud Infrastructure",
-    excerpt: "Lessons from building cloud infrastructure for Fortune 500 companies and how to apply them.",
-    content: "",
-    author: "Glovax Team",
-    category: "Cloud Computing",
-    tags: [],
-    publishedAt: "2026-01-20",
-    readTime: 9,
-    featured: false,
-  },
-  {
-    id: "5",
-    slug: "mobile-app-trends-2026",
-    title: "Mobile App Development Trends Shaping 2026",
-    excerpt: "From AI-powered apps to cross-platform frameworks, discover the trends defining mobile development.",
-    content: "",
-    author: "Glovax Team",
-    category: "Mobile Development",
-    tags: [],
-    publishedAt: "2026-01-08",
-    readTime: 6,
-    featured: false,
-  },
-  {
-    id: "6",
-    slug: "data-driven-culture",
-    title: "How to Build a Data-Driven Culture",
-    excerpt: "Transforming your organization to be truly data-driven requires more than just tools.",
-    content: "",
-    author: "Glovax Team",
-    category: "Data Science",
-    tags: [],
-    publishedAt: "2026-01-02",
-    readTime: 8,
-    featured: false,
-  },
-];
+import { blogPosts as staticPosts } from "@/data/blog";
 
 export default function BlogContent() {
-  const [posts, setPosts] = useState<BlogPost[]>(fallbackPosts);
+  const [posts, setPosts] = useState<BlogPost[]>(staticPosts);
 
   useEffect(() => {
     fetch("/api/public/blog")

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { MagneticButton } from "@/components/shared/MagneticButton";
+import { siteConfig } from "@/lib/constants";
 
 export function CTABanner() {
   return (
@@ -65,7 +66,10 @@ export function CTABanner() {
               <MagneticButton href="/contact" variant="primary" size="lg">
                 Start a Project
               </MagneticButton>
-              <MagneticButton href="/services" variant="outline" size="lg">
+              <MagneticButton href={siteConfig.calendarUrl} variant="outline" size="lg">
+                Book a Call
+              </MagneticButton>
+              <MagneticButton href="/services" variant="ghost" size="lg">
                 Explore Services
               </MagneticButton>
             </div>
